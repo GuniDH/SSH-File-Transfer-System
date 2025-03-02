@@ -1,6 +1,4 @@
-## RSA&AES encrypted client-server file transfer system
-## By Guni Deyo Haness
-
+## RSA&AES encrypted client-server file transfer system by Guni
 This project grants clients to securely store their files in the server's database.
 
 ### Enviroment:
