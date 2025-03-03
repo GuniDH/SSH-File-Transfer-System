@@ -1,5 +1,5 @@
 // Client for RSA encrypted file transfer system
-// Guni Deyo Haness 215615519
+// Guni Deyo Haness
 
 
 #include "Client.h"
