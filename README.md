@@ -49,7 +49,7 @@ Detailed vulnerabilities analysis is provided in the docx file.
 ### 1. Clone the Repository
 
 ```sh
- git clone https://github.com/yourusername/RSA-AES-encrypted-client-server.git
+ git clone https://github.com/GuniDH/RSA-AES-encrypted-client-server-file-transfer-system.git
  cd RSA-AES-encrypted-client-server
 ```
 
