@@ -1,5 +1,5 @@
 # Server for RSA encrypted file transfer system
-# Guni Deyo Haness
+# Author: Guni 
 
 
 from Server import Server
