@@ -50,7 +50,7 @@ Detailed vulnerabilities analysis is provided in the docx file.
 
 ```sh
  git clone https://github.com/GuniDH/RSA-AES-encrypted-client-server-file-transfer-system.git
- cd RSA-AES-encrypted-client-server
+ cd RSA-AES-encrypted-client-server-file-transfer-system
 ```
 
 ### 2. Build the Project
