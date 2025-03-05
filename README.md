@@ -1,4 +1,4 @@
-# RSA-AES Encrypted Client-Server File Transfer System by Guni #
+# Secure File Transfer System by Guni #
 
 ## Overview
 
