@@ -7,22 +7,13 @@ This project implements a secure **client-server file transfer system** using a 
 ## Features
 
 - **Hybrid Encryption**: Uses **AES (Advanced Encryption Standard)** for symmetric encryption and **RSA** for asymmetric key exchange.
-- **Data Integrity Verification**: Implements CRC (Cyclic Redundancy Check) to ensure the integrity of transferred files and detect transmission errors.
+- **Data Integrity Verification**: Implements CRC to ensure the integrity of transferred files and detect transmission errors.
+- **Backup utilization**: Sqlite database
 
 ## Technologies Used
 
 I developed server using VSC with python 3.12.1, and developed client using VS with C++17. Socket programming in client was done using Boost, and in server using Socket module. Encryption is done in client using Crypto++, and in server using Pycryptodome module.
-- **C++** (for Client & Server Implementation)
-- **OpenSSL** (for Cryptographic Operations)
-- **Networking Libraries** (for Client-Server Communication)
-
-## Prerequisites
-
-Ensure you have the following installed:
-
-- **C++ Compiler** (GCC/Clang/MSVC)
-- **OpenSSL**
-- **CMake** (if using build automation)
+Database was written by Sqlite.
 
 ## Notes:
 • I chose the packet size for file transfer to be 8KB in order to enable faster transfer of larger files. I performed grid-search to find the optimal size for this project,
@@ -44,47 +35,6 @@ I chose this method over creating a new thread for each client connection becaus
 and thus prevent Directory Traversal Attack.
 Detailed vulnerabilities analysis is provided in the docx file.
 
-## Installation & Usage
-
-### 1. Clone the Repository
-
-```sh
- git clone https://github.com/GuniDH/RSA-AES-encrypted-client-server-file-transfer-system.git
- cd RSA-AES-encrypted-client-server-file-transfer-system
-```
-
-### 2. Build the Project
-
-#### Using g++ (Linux/macOS)
-
-```sh
- g++ -o client Client/Client.cpp Client/AESWrapper.cpp Client/Base64Wrapper.cpp -lssl -lcrypto
- g++ -o server Server/Server.cpp -lssl -lcrypto
-```
-
-#### Using MSVC (Windows)
-
-```sh
- cl /EHsc /I "C:\OpenSSL-Win64\include" Client\Client.cpp Client\AESWrapper.cpp Client\Base64Wrapper.cpp /link /LIBPATH:"C:\OpenSSL-Win64\lib" libssl.lib libcrypto.lib
-```
-
-### 3. Run the Server
-
-```sh
- ./server
-```
-
-### 4. Run the Client
-
-```sh
- ./client
-```
-
-## Security Considerations
-
-- RSA key length should be at least **2048 bits** for strong security.
-- AES encryption should use **256-bit keys**.
-- Ensure OpenSSL is **updated** to avoid vulnerabilities.
 
 ## License
 
