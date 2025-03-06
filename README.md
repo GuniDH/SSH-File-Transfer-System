@@ -15,6 +15,19 @@ This project implements a secure **client-server file transfer system** using a 
 I developed server using VSC with python 3.12.1, and developed client using VS with C++17. Socket programming in client was done using Boost, and in server using Socket module. Encryption is done in client using Crypto++, and in server using Pycryptodome module.
 Database was written by Sqlite.
 
+## Key exchange
+
+• The client generates a pair of assymetric keys: RSA keys (also known as Diffie-Hellman).
+• The client sends the public key to the server.
+• The server uses it to encrypt the symetric key: the AES key.
+• The encrypted AES key is sent back to the client and can be decrypted using the client's private key.
+• From that time and on, all the encrypted information will be encrpyted and decrypted with the AES key, which both the client and the server possess.
+
+## Why use both symmetric and asymmetric keys?
+Asymmetric key's encryption and decryption operations are significantly slower compared to symmetric encryption algorithms like AES.
+RSA requires longer key sizes to achieve comparable security levels to symmetric encryption algorithms. For example, in this project we used a 256-bit AES key and 1024-bit RSA key.
+To pass the symmetric key successsfully to the client without an attacker reading it, we need to use a pair of asymmetric keys. The public key is only for encryption, and the private key is for decryption. Every one can have the public key, but the private key is stored (hopefully) safely, client-side.
+
 ## Notes:
 • I chose the packet size for file transfer to be 8KB in order to enable faster transfer of larger files. I performed grid-search to find the optimal size for this project,
 considering the fact the limited amount for packets to be sent is 2^16-1 due to the size of total packets field in the header.
