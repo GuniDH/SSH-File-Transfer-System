@@ -15,18 +15,27 @@ This project implements a secure **client-server file transfer system** using a 
 I developed server using VSC with python 3.12.1, and developed client using VS with C++17. Socket programming in client was done using Boost, and in server using Socket module. Encryption is done in client using Crypto++, and in server using Pycryptodome module.
 Database was written by Sqlite.
 
-## Key exchange
+## Key Exchange Process  
 
-• The client generates a pair of assymetric keys: RSA keys (also known as Diffie-Hellman).
-• The client sends the public key to the server.
-• The server uses it to encrypt the symetric key: the AES key.
-• The encrypted AES key is sent back to the client and can be decrypted using the client's private key.
-• From that time and on, all the encrypted information will be encrpyted and decrypted with the AES key, which both the client and the server possess.
+1. The **client** generates an asymmetric key pair using **RSA**.  
+2. The **client** sends its **public key** to the **server**.  
+3. The **server** encrypts a newly generated **AES symmetric key** using the **client's public key**.  
+4. The **server** sends the encrypted **AES key** back to the **client**.  
+5. The **client** decrypts the AES key using its **private RSA key**.  
+6. From this point onward, all communication is encrypted and decrypted using **AES**, which both the client and server now share.  
 
-## Why use both symmetric and asymmetric keys?
-Asymmetric key's encryption and decryption operations are significantly slower compared to symmetric encryption algorithms like AES.
-RSA requires longer key sizes to achieve comparable security levels to symmetric encryption algorithms. For example, in this project we used a 256-bit AES key and 1024-bit RSA key.
-To pass the symmetric key successsfully to the client without an attacker reading it, we need to use a pair of asymmetric keys. The public key is only for encryption, and the private key is for decryption. Every one can have the public key, but the private key is stored (hopefully) safely, client-side.
+---
+
+## Why Use Both Asymmetric and Symmetric Encryption?  
+
+Asymmetric encryption (RSA) is significantly slower than symmetric encryption algorithms like AES. Additionally, RSA requires much longer key sizes to achieve the same level of security as AES.  
+
+For example, in this project, we use a **256-bit AES key** and a **1024-bit RSA key** to ensure secure communication.  
+
+To securely transmit the AES key without exposing it to attackers, we use **asymmetric encryption** (RSA) for the key exchange. The **public RSA key** is used for encryption, while the **private RSA key**—stored securely on the client side—is used for decryption.  
+
+Once the AES key has been exchanged, all further communication is encrypted using **AES**, which is much more efficient for large amounts of data.  
+
 
 ## Notes:
 • I chose the packet size for file transfer to be 8KB in order to enable faster transfer of larger files. I performed grid-search to find the optimal size for this project,
@@ -48,13 +57,5 @@ I chose this method over creating a new thread for each client connection becaus
 and thus prevent Directory Traversal Attack.
 Detailed vulnerabilities analysis is provided in the docx file.
 
-
-## License
-
-This project is licensed under the **MIT License**.
-
----
-
 ### Author
-
 **Guni**
