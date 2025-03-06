@@ -12,36 +12,42 @@ This project implements a secure **client-server file transfer system** using a 
 
 ## Technologies Used
 
-I developed server using VSC with python 3.12.1, and developed client using VS with C++17. Socket programming in client was done using Boost, and in server using Socket module. Encryption is done in client using Crypto++, and in server using Pycryptodome module.
-Database was written by Sqlite.
+I developed server using VSC with python 3.12.1, using Socket and Pycryptodome modules, and developed client using VS with C++17, using Boost and Crypto++.
 
-## Key Exchange Process  
+## Protocol 
 
-1. The **client** generates an asymmetric key pair using **RSA**.  
-2. The **client** sends its **public key** to the **server**.  
-3. The **server** encrypts a newly generated **AES symmetric key** using the **client's public key**.  
-4. The **server** sends the encrypted **AES key** back to the **client**.  
-5. The **client** decrypts the AES key using its **private RSA key**.  
-6. From this point onward, all communication is encrypted and decrypted using **AES**, which both the client and server now share.  
+2 Cases which are differentiable by the existence of files in the client's PC:
 
+a. New client:
+1. The client sends a registration request
+2. The server sends the client its unique uuid
+3. The client generates an asymmetric key pair using **RSA** and sends the public key to the server
+4. The server encrypts a newly generated **AES symmetric key** using the **client's public key**
+5. The server sends the encrypted **AES key** to the client  
+6. The client decrypts the AES key using its **private RSA key**
+7. From this point onward, all communication is encrypted and decrypted using **AES**, which both the client and server now share
+8. The client slices the file into packets of 8KB, encrypts each packet with the **AES** symmetric key then sends them to the server
+9. CRC ensures the integrity of the transferred file and resends the file again if needed, up to 3 more attempts
+
+b. Existing client:
+1. The client sends a reconnection request with its previously generated uuid
+2. The server accepts if the client exists
+3. The client generates an asymmetric key pair using **RSA** and sends the public key to the server
+4. The server encrypts the previously generated **AES symmetric key** that was retrieved from the database, using the **client's public key**
+5. The server sends the encrypted **AES key** to the client  
+6. The client decrypts the AES key using its **private RSA key**
+7. From this point onward, all communication is encrypted and decrypted using **AES**, which both the client and server now share
+8. The client slices the file into packets of 8KB, encrypts each packet with the **AES** symmetric key then sends them to the server
+9. CRC ensures the integrity of the transferred file and resends the file again if needed, up to 3 more attempts
+נככ
+****
 ---
-
-## Why Use Both Asymmetric and Symmetric Encryption?  
-
-Asymmetric encryption (RSA) is significantly slower than symmetric encryption algorithms like AES. Additionally, RSA requires much longer key sizes to achieve the same level of security as AES.  
-
-For example, in this project, we use a **256-bit AES key** and a **1024-bit RSA key** to ensure secure communication.  
-
-To securely transmit the AES key without exposing it to attackers, we use **asymmetric encryption** (RSA) for the key exchange. The **public RSA key** is used for encryption, while the **private RSA key**—stored securely on the client side—is used for decryption.  
-
-Once the AES key has been exchanged, all further communication is encrypted using **AES**, which is much more efficient for large amounts of data.  
-
 
 ## Notes:
 • I chose the packet size for file transfer to be 8KB in order to enable faster transfer of larger files. I performed grid-search to find the optimal size for this project,
 considering the fact the limited amount for packets to be sent is 2^16-1 due to the size of total packets field in the header.
 
-• File overwriting is not allowed thus if the ame client
+• File overwriting is not allowed thus if the same client
 provides the system with an existing file path a general error (1607) will be returned.
 
 • I work with ThreadPool to support multiple clients.
