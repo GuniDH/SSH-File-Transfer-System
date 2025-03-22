@@ -59,9 +59,5 @@ I chose this method over creating a new thread for each client connection becaus
 2. Thread creation and destruction are relatively expensive operations. By reusing threads from the pool, the server can
  handle client requests more efficiently, without creating and destroying threads frequently, thus reducing latency. 
 
-• I used os.path.basename to ignore signs such as ../ in file names,
-and thus prevent Directory Traversal Attack.
-Detailed vulnerabilities analysis is provided in the docx file.
-
 ### Author
 **Guni**
