@@ -39,7 +39,7 @@ b. Existing client:
 7. From this point onward, all communication is encrypted and decrypted using **AES**, which both the client and server now share
 8. The client slices the file into packets of 8KB, encrypts each packet with the **AES** symmetric key then sends them to the server
 9. CRC ensures the integrity of the transferred file and resends the file again if needed, up to 3 more attempts
-נככ
+
 ****
 ---
 
