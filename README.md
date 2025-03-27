@@ -2,17 +2,14 @@
 
 ## Overview
 
-This project implements a secure **client-server file transfer system** using a combination of **RSA and AES encryption**. It ensures that files transferred between the client and server remain confidential and protected from unauthorized access.
+This project implements a secure **client-server file transfer system** using a combination of **RSA and AES encryption**. It ensures that files transferred between the client and server remain confidential and protected from unauthorized access. 
+Communication between client and server is done via a custom protocol with custom packets.
 
 ## Features
 
 - **Hybrid Encryption**: Uses **AES (Advanced Encryption Standard)** for symmetric encryption and **RSA** for asymmetric key exchange.
 - **Data Integrity Verification**: Implements CRC to ensure the integrity of transferred files and detect transmission errors.
 - **Backup utilization**: Sqlite database
-
-## Technologies Used
-
-I developed server using VSC with python 3.12.1, using Socket and Pycryptodome modules, and developed client using VS with C++17, using Boost and Crypto++.
 
 ## Protocol 
 
@@ -43,9 +40,11 @@ b. Existing client:
 ****
 ---
 
+## Technologies Used
+
+I developed server using VSC with python 3.12.1, using Socket and Pycryptodome modules, and developed client using VS with C++17, using Boost and Crypto++.
+
 ## Notes:
-• I chose the packet size for file transfer to be 8KB in order to enable faster transfer of larger files. I performed grid-search to find the optimal size for this project,
-considering the fact the limited amount for packets to be sent is 2^16-1 due to the size of total packets field in the header.
 
 • File overwriting is not allowed thus if the same client
 provides the system with an existing file path a general error (1607) will be returned.
