@@ -2,16 +2,15 @@
 
 ## Overview
 
-This project implements a secure **client-server file transfer system** using a combination of **RSA and AES encryption**. It ensures that files transferred between the client and server remain confidential and protected from unauthorized access. 
-Communication between client and server is done via a custom protocol with custom packets.
+This project implements SSH protocol for a secure **client-server file transfer system** using a combination of **RSA and AES encryption**. It ensures that files transferred between the client and server remain confidential and protected from unauthorized access. 
 
 ## Features
 
-- **Hybrid Encryption**: Uses **AES (Advanced Encryption Standard)** for symmetric encryption and **RSA** for asymmetric key exchange.
+- **Hybrid SSH Encryption**: Uses **AES (Advanced Encryption Standard)** for symmetric encryption and **RSA** for asymmetric key exchange.
 - **Data Integrity Verification**: Implements CRC to ensure the integrity of transferred files and detect transmission errors.
 - **Backup utilization**: Sqlite database
 
-## Protocol 
+## SSH Protocol 
 
 2 Cases which are differentiable by the existence of files in the client's PC:
 
@@ -39,10 +38,6 @@ b. Existing client:
 
 ****
 ---
-
-## Technologies Used
-
-I developed server using VSC with python 3.12.1, using Socket and Pycryptodome modules, and developed client using VS with C++17, using Boost and Crypto++.
 
 ## Notes:
 
