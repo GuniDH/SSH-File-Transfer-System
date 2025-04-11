@@ -1,4 +1,4 @@
-# Secure File Transfer System by Guni #
+# SSH Secure File Transfer System by Guni #
 
 ## Overview
 
